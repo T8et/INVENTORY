@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="IV.ApiServices/IV.ApiServices.csproj" />
+  <Project Path="IV.DataCenter/IV.DataCenter.csproj" />
+</Solution>
