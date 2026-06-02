@@ -1,4 +1,6 @@
-﻿using IV.DataCenter.Models;
+﻿using Azure;
+using IV.DataCenter.Models;
+using IV.Services.Response;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ namespace IV.Services.Features.StockType
     public class StockServices
     {
         private readonly AppDBContext _db = new AppDBContext();
+        private readonly StkTypeResponseModel _rsp = new StkTypeResponseModel();
 
         public List<BtStkType> GetAllStkTypes()
         {
@@ -24,11 +27,20 @@ namespace IV.Services.Features.StockType
             return response;
         }
 
-        public BtStkType PostStkType(BtStkType dataModel)
+        public async Task<BaseResponseModel> PostStkType(BtStkType dataModel)
         {
-            _db.BtStkTypes.Add(dataModel);
-            _db.SaveChanges();
-            return dataModel;
+            try
+            {
+                await _db.BtStkTypes.AddAsync(dataModel);
+                await _db.SaveChangesAsync();
+                _rsp.response = BaseResponseModel.Success("200", "Created Successfully!");
+                return _rsp.response;
+            }
+            catch (Exception)
+            {
+                _rsp.response = BaseResponseModel.ValidationError("501", "Fail Data Creation!");
+                return _rsp.response;
+            }
         }
 
         public BtStkType PutStkType(int id,BtStkType dataModel)
