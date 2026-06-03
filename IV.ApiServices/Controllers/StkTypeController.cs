@@ -8,11 +8,11 @@ namespace IV.ApiServices.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StkTypeController : ControllerBase
+    public class StkTypeController : ResponseController
     {
         private readonly AppDBContext db = new AppDBContext();
 
-        private readonly StockServices service = new StockServices();
+        private readonly StkTypeServices service = new StkTypeServices();
 
         [HttpGet("stocktypes")]
         public IActionResult GetStockTypes()
@@ -30,35 +30,31 @@ namespace IV.ApiServices.Controllers
         }
 
         [HttpPost("newstktype")]
-        public IActionResult CreateStkType(BtStkType dataModel)
+        public async Task<IActionResult> CreateStkType(BtStkType dataModel)
         {
-            var response = service.PostStkType(dataModel);
-            if (response is null) return BadRequest();
-            return Ok(response);
+            var response = await service.PostStkType(dataModel);
+            return Execute(response);
         }
 
         [HttpPatch("PatchUpdate")]
-        public IActionResult PatchUpdate(int id, BtStkType dataModel)
+        public async Task<IActionResult> PatchUpdate(int id, BtStkType dataModel)
         {
-            var response = service.PatchStkType(id, dataModel);
-            if (response == null) return BadRequest();
-            return Ok(response);
+            var response = await service.PatchStkType(id, dataModel);
+            return Execute(response);
         }
 
         [HttpPut("PutUpdate")]
-        public IActionResult PutUpdate(int id,BtStkType dataModel)
+        public async Task<IActionResult> PutUpdate(int id,BtStkType dataModel)
         {
-            var response = service.PutStkType(id, dataModel);
-            if (response == null) return BadRequest();
-            return Ok(response);
+            var response = await service.PutStkType(id, dataModel);
+            return Execute(response);
         }
 
         [HttpDelete("Delete")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var response = service.DeleteStkType(id);
-            if(response == null) return BadRequest();
-            return Ok(response);
+            var response = await service.DeleteStkType(id);
+            return Execute(response);
         }
     }
 }

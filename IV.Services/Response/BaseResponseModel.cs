@@ -50,6 +50,17 @@ namespace IV.Services.Response
                 RespType = EnumRspType.SystemError
             };
         }
+
+        public static BaseResponseModel DataNotExist(string rspCode, string RspDesc)
+        {
+            return new BaseResponseModel()
+            {
+                isSuccess = false,
+                RespCode = rspCode,
+                RespDesc = RspDesc,
+                RespType = EnumRspType.DataNotExist
+            };
+        }
     }
 
     public enum EnumRspType
