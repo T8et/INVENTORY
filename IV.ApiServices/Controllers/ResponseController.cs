@@ -15,11 +15,11 @@ namespace IV.ApiServices.Controllers
         {
             JObject newObj = JObject.Parse(JsonConvert.SerializeObject(rspobj));
 
-            if(newObj is not null)
+            if (newObj is not null)
             {
                 BaseResponseModel model = JsonConvert.DeserializeObject<BaseResponseModel>(newObj["response"]!.ToString())!;
 
-                if(model.RespType == EnumRspType.ValidationError)
+                if (model.RespType == EnumRspType.ValidationError)
                 {
                     return BadRequest(model);
                 }
@@ -36,6 +36,24 @@ namespace IV.ApiServices.Controllers
             }
 
             return StatusCode(503, "Invalid Response Model");
+        }
+
+        [HttpGet("CmResponse")]
+        public IActionResult Execute1<T>(CmResponseModel<T> model)
+        {
+            if (model.isSuccess)
+            {
+                return Ok(model);
+            }
+            if (model.isValidationErr)
+            {
+                return BadRequest(model);
+            }
+            if (model.isSystemErr)
+            {
+                return BadRequest(model);
+            }
+            return Ok(model);
         }
     }
 }

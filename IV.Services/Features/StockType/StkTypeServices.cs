@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace IV.Services.Features.StockType
     {
         private readonly AppDBContext _db = new AppDBContext();
         private readonly StkTypeResponseModel _rsp = new StkTypeResponseModel();
+        private CmResponseModel<StkTypeResponseModel> _cmrsp = new CmResponseModel<StkTypeResponseModel>();
 
         public List<BtStkType> GetAllStkTypes()
         {
@@ -40,6 +42,26 @@ namespace IV.Services.Features.StockType
             {
                 _rsp.response = BaseResponseModel.ValidationError("501", "Fail Data Creation!");
                 return _rsp;
+            }
+        }
+
+        public async Task<CmResponseModel<StkTypeResponseModel>> PostStkType1(BtStkType dataModel)
+        {
+            try
+            {
+                await _db.BtStkTypes.AddAsync(dataModel);
+                await _db.SaveChangesAsync();
+
+                StkTypeResponseModel rsp = new StkTypeResponseModel();
+                rsp.cmresponse = dataModel;
+
+                _cmrsp = CmResponseModel<StkTypeResponseModel>.Success(rsp, "Successfully Inserted");
+                return _cmrsp;
+            }
+            catch (Exception)
+            {
+                _cmrsp = CmResponseModel<StkTypeResponseModel>.SystemError("Successfully Inserted");
+                return _cmrsp;
             }
         }
 

@@ -36,6 +36,13 @@ namespace IV.ApiServices.Controllers
             return Execute(response);
         }
 
+        [HttpPost("newstktype1")]
+        public async Task<IActionResult> CreateStkType1(BtStkType dataModel)
+        {
+            var response = await service.PostStkType1(dataModel);
+            return Execute1(response);
+        }
+
         [HttpPatch("PatchUpdate")]
         public async Task<IActionResult> PatchUpdate(int id, BtStkType dataModel)
         {
