@@ -10,9 +10,12 @@ namespace IV.ApiServices.Controllers
     [ApiController]
     public class StkTypeController : ResponseController
     {
-        private readonly AppDBContext db = new AppDBContext();
+        private readonly StkTypeServices service;
 
-        private readonly StkTypeServices service = new StkTypeServices();
+        public StkTypeController(StkTypeServices _service)
+        {
+            service = _service;
+        }
 
         [HttpGet("stocktypes")]
         public IActionResult GetStockTypes()

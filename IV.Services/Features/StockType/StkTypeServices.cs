@@ -13,9 +13,14 @@ namespace IV.Services.Features.StockType
 {
     public class StkTypeServices
     {
-        private readonly AppDBContext _db = new AppDBContext();
+        private readonly AppDBContext _db;
         private readonly StkTypeResponseModel _rsp = new StkTypeResponseModel();
         private CmResponseModel<StkTypeResponseModel> _cmrsp = new CmResponseModel<StkTypeResponseModel>();
+
+        public StkTypeServices(AppDBContext db)
+        {
+            _db = db;
+        }
 
         public List<BtStkType> GetAllStkTypes()
         {
