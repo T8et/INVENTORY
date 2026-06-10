@@ -11,6 +11,8 @@ builder.Services.AddDbContext<AppDBContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DBCon"));
 });
 
+builder.Services.AddScoped<StkTypeServices>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

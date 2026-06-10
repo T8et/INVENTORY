@@ -6,8 +6,12 @@ namespace IV.DataCenter.Models;
 
 public partial class AppDBContext : DbContext
 {
-    public AppDBContext(DbContextOptions<AppDBContext> options)
-        : base(options)
+    //public AppDBContext(DbContextOptions<AppDBContext> options)
+    //    : base(options)
+    //{
+    //}
+
+    public AppDBContext(DbContextOptions options) : base(options)
     {
     }
 
