@@ -4,5 +4,6 @@
   </Folder>
   <Project Path="IV.ApiServices/IV.ApiServices.csproj" />
   <Project Path="IV.DataCenter/IV.DataCenter.csproj" />
+  <Project Path="IV.MyClient/IV.MyClient.csproj" Id="ba939949-a84c-445d-8e64-647d42522b1e" />
   <Project Path="IV.Services/IV.Services.csproj" Id="39d5f0f0-40ff-401a-93ca-a547815463c7" />
 </Solution>
